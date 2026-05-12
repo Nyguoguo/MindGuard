@@ -1,0 +1,30 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: mindguard-gateway
+  cloud:
+    nacos:
+      discovery:
+        enabled: false
+      config:
+        enabled: false
+    gateway:
+      routes:
+        - id: auth-route
+          uri: http://localhost:8081
+          predicates:
+            - Path=/api/auth/**
+        - id: chat-route
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/chat/**,/api/knowledge/**,/api/psych/**
+        - id: notification-route
+          uri: http://localhost:8083
+          predicates:
+            - Path=/api/notify/**
+
+jwt:
+  secret: mindguard-jwt-secret-key-2025-must-be-long-enough
+  expiration-ms: 86400000

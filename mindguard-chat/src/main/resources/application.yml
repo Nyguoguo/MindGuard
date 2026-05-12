@@ -1,0 +1,41 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: mindguard-chat
+  cloud:
+    nacos:
+      discovery:
+        enabled: false
+      config:
+        enabled: false
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3307/mindguard_chat?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  ai:
+    ollama:
+      base-url: http://127.0.0.1:11434
+      chat:
+        model: qwen2.5:7b
+    openai:
+      api-key: ${OPENAI_API_KEY:sk-your-key}
+      chat:
+        options:
+          model: gpt-4o-mini
+    vectorstore:
+      chroma:
+        host: http://127.0.0.1
+        port: 8000
+        collection-name: mindguard-knowledge
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+mindguard:
+  model:
+    strategy: ollama
